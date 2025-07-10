@@ -1,2 +1,3 @@
-idf_component_register(SRCS "blink_example_main.c"
-                       INCLUDE_DIRS ".")
+idf_component_register(SRCS "main.c"
+                       INCLUDE_DIRS "include"
+                       REQUIRES "led_driver" "storage" "wifi_manager" "udp_server" "nvs_flash")
