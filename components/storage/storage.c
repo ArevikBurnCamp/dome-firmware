@@ -42,6 +42,7 @@ esp_err_t storage_load_config(app_config_t *config) {
         strcpy(config->wifi_ssid, "");
         strcpy(config->wifi_password, "");
         config->brightness = 128;
+        config->power_state = true;
         return err;
     }
 
@@ -53,6 +54,7 @@ esp_err_t storage_load_config(app_config_t *config) {
         strcpy(config->wifi_ssid, "");
         strcpy(config->wifi_password, "");
         config->brightness = 128;
+        config->power_state = true;
         err = ESP_OK; // It's not an error if the config is not found, we just use defaults
     } else if (err != ESP_OK) {
         ESP_LOGE(TAG, "Error (%s) reading configuration from NVS!", esp_err_to_name(err));

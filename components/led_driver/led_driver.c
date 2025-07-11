@@ -4,8 +4,10 @@
 
 static const char *TAG = "LED_DRIVER";
 static led_strip_handle_t led_strip;
+static uint16_t s_led_count = 0;
 
 esp_err_t led_driver_init(int gpio, uint16_t led_count) {
+    s_led_count = led_count;
     led_strip_config_t strip_config = {
         .strip_gpio_num = gpio,
         .max_leds = led_count,
@@ -32,4 +34,11 @@ esp_err_t led_driver_clear() {
 
 esp_err_t led_driver_set_brightness(uint8_t brightness) {
     return led_strip_set_brightness(led_strip, brightness);
+}
+
+void led_driver_show_frame(const uint8_t *rgb_buffer, size_t led_count) {
+    for (size_t i = 0; i < led_count; i++) {
+        led_driver_set_pixel(i, rgb_buffer[i * 3], rgb_buffer[i * 3 + 1], rgb_buffer[i * 3 + 2]);
+    }
+    led_driver_refresh();
 }
